@@ -1,7 +1,10 @@
 import React from 'react'
+import EditorComponent from './conponents/Editor'
 
 export default function page() {
   return (
-    <div>page</div>
+    <div>
+      <EditorComponent />
+    </div>
   )
 }
