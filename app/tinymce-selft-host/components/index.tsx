@@ -1,31 +1,13 @@
 "use client";
 import { Editor } from "@tinymce/tinymce-react";
+import { MathJax } from "better-react-mathjax";
 import React, { useRef, useEffect, useState } from "react";
 
-const loadMathJax = () => {
-  const script = document.createElement("script");
-  script.src = "/assets/plugins/mathjax/es5/tex-mml-chtml.js";
-  script.async = true;
-  document.head.appendChild(script);
-};
 
-const useMathJax = () => {
-  useEffect(() => {
-    loadMathJax();
-  }, []);
-};
 
 export function CustomEditor(props) {
   const editorRef = useRef(null);
   const [htmlContent, setHtmlContent] = useState<string | null>(null);
-
-  useMathJax(); // Call the useMathJax hook to load MathJax
-
-  useEffect(() => {
-    if (window.MathJax) {
-      window.MathJax.typesetPromise();
-    }
-  }, [htmlContent]);
 
   const logContent = () => {
     if (editorRef.current) {
@@ -94,22 +76,26 @@ export function CustomEditor(props) {
             "alignright alignjustify | bullist numlist outdent indent | " +
             "mathjax code removeformat | help",
           content_style: `
-            body { font-family:Helvetica,Arial,sans-serif; font-size:14px }
+            body { line-height:1 }
             @import url('../../abc.css');
           `,
-          content_css: [
-            "_next/static/css/app/layout.css",
-          ],
+          content_css: ["_next/static/css/app/layout.css"],
+          body_class: "prose max-w-full p-2 focus:border-none",
         }}
         onEditorChange={handleEditorChange}
       />
       <button onClick={logContent}>Log Content</button>
       {htmlContent && (
-        <div className="off-css">
-          <h3>HTML Content:</h3>
-          <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-        </div>
+        <MathJax>
+          <article
+            className="prose"
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+          />
+        </MathJax>
       )}
+      {/* {htmlContent && (
+        <iframe className="w-full h-auto" srcDoc={htmlContent} />
+      )} */}
     </div>
   );
 }

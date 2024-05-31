@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+// import "./tiny.css";
 import Link from "next/link";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +28,9 @@ export default function RootLayout({
             ⬅ Về Trang chủ
           </Link>
         </div>
-        <div>{children}</div>
+        <div>
+           {children}
+        </div>
       </body>
     </html>
   );
