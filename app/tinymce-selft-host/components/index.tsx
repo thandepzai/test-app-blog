@@ -50,8 +50,6 @@ export function CustomEditor(props) {
 
   return (
     <div>
-                <div className="off-css"><h1>đấ</h1> <h2>dsadasdasd</h2></div>
-
       <Editor
         tinymceScriptSrc="/assets/libs/tinymce/tinymce.min.js"
         onInit={(evt, editor) => (editorRef.current = editor)}
@@ -95,14 +93,19 @@ export function CustomEditor(props) {
             "bold italic forecolor backcolor | alignleft aligncenter " +
             "alignright alignjustify | bullist numlist outdent indent | " +
             "mathjax code removeformat | help",
-          content_style:
-            "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+          content_style: `
+            body { font-family:Helvetica,Arial,sans-serif; font-size:14px }
+            @import url('../../abc.css');
+          `,
+          content_css: [
+            "_next/static/css/app/layout.css",
+          ],
         }}
         onEditorChange={handleEditorChange}
       />
       <button onClick={logContent}>Log Content</button>
       {htmlContent && (
-        <div>
+        <div className="off-css">
           <h3>HTML Content:</h3>
           <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
         </div>

@@ -26,6 +26,7 @@ export default function TinymcePage() {
             ),
           // min_height: 400,
           // max_height: 1000,
+          content_css: "../globals.css"
         }}
         // toolbar={"accordion"}
         initialValue="Welcome to TinyMCE!"
